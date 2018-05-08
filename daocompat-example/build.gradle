@@ -1,0 +1,32 @@
+// Repositories are defined in root build.gradle
+
+buildscript {
+    dependencies {
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.objectbox'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "io.objectbox.example.daocompat"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ['objectbox.daoCompat': 'true']
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation "org.greenrobot:objectbox-daocompat:1.4.2"
+}

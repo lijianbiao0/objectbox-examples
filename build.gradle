@@ -1,0 +1,54 @@
+ext {
+    _compileSdkVersion = 27
+    objectboxVersion = '1.5.0'
+}
+
+buildscript {
+    dependencies {
+        // need to include in top build file
+        // https://developer.android.com/studio/build/gradle-plugin-3-0-0.html#known_issues
+        classpath 'com.android.tools.build:gradle:3.1.2'
+    }
+
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+allprojects {
+    buildscript {
+        repositories {
+            jcenter()
+            mavenCentral()
+            google()
+        }
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        google()
+    }
+}
+
+task zipAll(type: Zip) {
+    baseName "objectbox-examples"
+    from(rootDir) {
+        exclude '**/.idea/**'
+        exclude '**/build/**'
+        exclude '.gradle/**'
+        exclude '**/*.iml'
+        exclude '**/*.dll'
+        exclude '**/*.so'
+        exclude '**/local.properties'
+    }
+
+    destinationDir buildDir
+}
+
+task wrapper(type: Wrapper) {
+    group 'build setup'
+    gradleVersion '4.5.1'
+    distributionType Wrapper.DistributionType.ALL
+}
